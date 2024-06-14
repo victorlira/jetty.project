@@ -20,6 +20,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * <p>Utility class to maintain a set of inclusions and exclusions.</p>
  * <p>Maintains a set of included and excluded elements.  The method {@link #test(Object)}
@@ -38,7 +41,7 @@ public class IncludeExcludeSet<T, P> implements Predicate<P>
     private final Set<T> _excludes;
     private final Predicate<P> _excludePredicate;
 
-    private record SetContainsPredicate<T>(Set<T> set) implements Predicate<T>
+    private record SetContainsPredicate<T>(@NonNull Set<T> set) implements Predicate<T>
     {
         @Override
         public boolean test(T item)
@@ -72,7 +75,7 @@ public class IncludeExcludeSet<T, P> implements Predicate<P>
      * @param <SET> The type of {@link Set} to use as the backing store
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public <SET extends Set<T>> IncludeExcludeSet(Class<SET> setClass)
+    public <SET extends Set<T>> IncludeExcludeSet(@NonNull Class<SET> setClass)
     {
         try
         {
@@ -119,15 +122,10 @@ public class IncludeExcludeSet<T, P> implements Predicate<P>
     @SuppressWarnings("unused")
     public <SET extends Set<T>> IncludeExcludeSet(Set<T> includeSet, Predicate<P> includePredicate, Set<T> excludeSet, Predicate<P> excludePredicate)
     {
-        Objects.requireNonNull(includeSet, "Include Set");
-        Objects.requireNonNull(includePredicate, "Include Predicate");
-        Objects.requireNonNull(excludeSet, "Exclude Set");
-        Objects.requireNonNull(excludePredicate, "Exclude Predicate");
-
-        _includes = includeSet;
-        _includePredicate = includePredicate;
-        _excludes = excludeSet;
-        _excludePredicate = excludePredicate;
+        _includes = Objects.requireNonNull(includeSet, "Include Set");;
+        _includePredicate = Objects.requireNonNull(includePredicate, "Include Predicate");
+        _excludes = Objects.requireNonNull(excludeSet, "Exclude Set");
+        _excludePredicate = Objects.requireNonNull(excludePredicate, "Exclude Predicate");
     }
 
     public IncludeExcludeSet<T, P> asImmutable()
@@ -199,6 +197,7 @@ public class IncludeExcludeSet<T, P> implements Predicate<P>
      * @param item The item to test
      * @return {@link Boolean#TRUE} if item is included, {@link Boolean#FALSE} if item is excluded, or null if neither
      */
+    @Nullable
     public Boolean isIncludedAndNotExcluded(P item)
     {
         if (!_excludes.isEmpty() && _excludePredicate.test(item))
@@ -224,11 +223,13 @@ public class IncludeExcludeSet<T, P> implements Predicate<P>
         return _includes.size() + _excludes.size();
     }
 
+    @NonNull
     public Set<T> getIncluded()
     {
         return _includes;
     }
 
+    @NonNull
     public Set<T> getExcluded()
     {
         return _excludes;

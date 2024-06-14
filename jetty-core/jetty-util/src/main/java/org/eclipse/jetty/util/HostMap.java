@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * @param <TYPE> the element type
  */
@@ -50,6 +52,7 @@ public class HostMap<TYPE> extends HashMap<String, TYPE>
     }
 
     @Override
+    @Nullable
     public TYPE get(Object key)
     {
         return super.get(key);
@@ -62,6 +65,7 @@ public class HostMap<TYPE> extends HashMap<String, TYPE>
      * @param host hostname
      * @return lazy list of map entries
      */
+    @Nullable
     public Object getLazyMatches(String host)
     {
         if (host == null)
@@ -69,7 +73,7 @@ public class HostMap<TYPE> extends HashMap<String, TYPE>
 
         int idx = 0;
         String domain = host.trim();
-        HashSet<String> domains = new HashSet<String>();
+        HashSet<String> domains = new HashSet<>();
         do
         {
             domains.add(domain);

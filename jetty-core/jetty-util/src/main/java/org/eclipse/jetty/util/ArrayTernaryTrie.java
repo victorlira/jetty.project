@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * <p>A Ternary Trie String lookup data structure.</p>
  * <p>
@@ -126,7 +128,7 @@ class ArrayTernaryTrie<V> extends AbstractTrie<V>
     }
 
     @Override
-    public boolean put(String s, V v)
+    public boolean put(String s, @Nullable V v)
     {
         int t = 0;
         int limit = s.length();
@@ -192,6 +194,7 @@ class ArrayTernaryTrie<V> extends AbstractTrie<V>
     }
 
     @Override
+    @Nullable
     public V get(String s, int offset, int len)
     {
         int t = 0;
@@ -225,6 +228,7 @@ class ArrayTernaryTrie<V> extends AbstractTrie<V>
     }
 
     @Override
+    @Nullable
     public V get(ByteBuffer b, int offset, int len)
     {
         int t = 0;

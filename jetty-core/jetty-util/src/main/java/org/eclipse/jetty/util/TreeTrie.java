@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * A Trie String lookup data structure using a tree
  * <p>This implementation is always case insensitive and is optimal for
@@ -72,7 +74,8 @@ class TreeTrie<V> extends AbstractTrie<V>
      * @param <V> The value type of the Trie
      * @return a Trie containing the contents or null if not possible.
      */
-    public static <V> AbstractTrie<V> from(boolean caseSensitive, Map<String, V> contents)
+    @Nullable
+    public static <V> AbstractTrie<V> from(boolean caseSensitive, @Nullable Map<String, V> contents)
     {
         TreeTrie<V> trie = new TreeTrie<>(caseSensitive);
         if (contents != null && !trie.putAll(contents))

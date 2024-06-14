@@ -20,6 +20,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * An immutable String lookup data structure.
  * @param <V> the entry type
@@ -173,7 +175,7 @@ public interface Index<V>
          * @param v The value of the entry. Must be non null.
          * @return True if the index had capacity to add the field.
          */
-        boolean put(String s, V v);
+        boolean put(String s, @Nullable V v);
 
         /**
          * Put a value as both a key and a value.
@@ -205,7 +207,7 @@ public interface Index<V>
         {
             private int maxCapacity = -1;
 
-            Builder(boolean caseSensitive, Map<String, V> contents)
+            Builder(boolean caseSensitive, @Nullable Map<String, V> contents)
             {
                 super(caseSensitive, contents);
             }
@@ -290,6 +292,7 @@ public interface Index<V>
      */
     class Builder<V>
     {
+        @Nullable
         Map<String, V> contents;
         boolean caseSensitive;
 
@@ -302,7 +305,7 @@ public interface Index<V>
             this.contents = null;
         }
 
-        Builder(boolean caseSensitive, Map<String, V> contents)
+        Builder(boolean caseSensitive, @Nullable Map<String, V> contents)
         {
             this.caseSensitive = caseSensitive;
             this.contents = contents;

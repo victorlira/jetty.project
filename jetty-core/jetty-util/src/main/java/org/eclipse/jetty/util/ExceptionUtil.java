@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.eclipse.jetty.util.thread.Invocable;
 
 /**
@@ -37,6 +38,7 @@ public class ExceptionUtil
      * @return A {@link Throwable} of type <code>T</code> or null.
      * @throws IllegalArgumentException if the passed <code>type</code> cannot be constructed with a cause.
      */
+    @Nullable
     public static <T extends Throwable> T as(Class<T> type, Throwable throwable) throws IllegalArgumentException
     {
         if (throwable == null)
@@ -94,7 +96,7 @@ public class ExceptionUtil
      * @throws Error If the passed {@link Throwable} is an {@link Error}.
      * @throws RuntimeException Otherwise, if the passed {@link Throwable} is not null.
      */
-    public static void ifExceptionThrowUnchecked(Throwable throwable)
+    public static void ifExceptionThrowUnchecked(@Nullable Throwable throwable)
         throws Error, RuntimeException
     {
         if (throwable == null)
@@ -232,6 +234,7 @@ public class ExceptionUtil
      */
     public static class MultiException
     {
+        @Nullable
         private Throwable _multiException;
 
         public void add(Throwable t)
@@ -291,7 +294,8 @@ public class ExceptionUtil
      * @param t2 Another Throwable or null
      * @return t1 with t2 suppressed, or null.
      */
-    public static Throwable combine(Throwable t1, Throwable t2)
+    @Nullable
+    public static Throwable combine(@Nullable Throwable t1, @Nullable Throwable t2)
     {
         if (t1 == null)
             return t2;

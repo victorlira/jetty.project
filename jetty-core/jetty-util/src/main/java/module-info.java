@@ -23,6 +23,7 @@ module org.eclipse.jetty.util
     requires static java.desktop;
     // Only required if using DriverManagerLeakPreventer.
     requires static java.sql;
+    requires com.github.spotbugs.annotations;
 
     exports org.eclipse.jetty.util;
     exports org.eclipse.jetty.util.annotation;

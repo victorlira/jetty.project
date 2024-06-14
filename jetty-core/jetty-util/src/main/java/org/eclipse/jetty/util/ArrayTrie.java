@@ -20,6 +20,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * <p>A Trie String lookup data structure using a fixed size array.</p>
  * <p>This implementation is always case insensitive and is optimal for
@@ -150,7 +152,8 @@ class ArrayTrie<V> extends AbstractTrie<V>
      * @param <V> The value type of the Trie
      * @return a Trie containing the contents or null if not possible.
      */
-    public static <V> ArrayTrie<V> from(int capacity, boolean caseSensitive, Map<String, V> contents)
+    @Nullable
+    public static <V> ArrayTrie<V> from(int capacity, boolean caseSensitive, @Nullable Map<String, V> contents)
     {
         // can't do infinite capacity
         if (capacity < 0)

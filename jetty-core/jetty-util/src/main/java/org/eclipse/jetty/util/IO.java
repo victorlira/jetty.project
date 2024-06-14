@@ -45,6 +45,7 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -426,7 +427,7 @@ public class IO
         }
     }
 
-    public static IOException rethrow(Throwable cause)
+    public static IOException rethrow(@Nullable Throwable cause)
     {
         if (cause instanceof ExecutionException xx)
             cause = xx.getCause();

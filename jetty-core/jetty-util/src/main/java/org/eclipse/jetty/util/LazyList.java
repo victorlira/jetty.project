@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Lazy List creation.
  * <p>
@@ -72,13 +74,13 @@ public class LazyList
      * @return The lazylist created or added to.
      */
     @SuppressWarnings("unchecked")
-    public static Object add(Object list, Object item)
+    public static Object add(@Nullable Object list, Object item)
     {
         if (list == null)
         {
             if (item instanceof List || item == null)
             {
-                List<Object> l = new ArrayList<Object>();
+                List<Object> l = new ArrayList<>();
                 l.add(item);
                 return l;
             }
@@ -92,7 +94,7 @@ public class LazyList
             return list;
         }
 
-        List<Object> l = new ArrayList<Object>();
+        List<Object> l = new ArrayList<>();
         l.add(list);
         l.add(item);
         return l;

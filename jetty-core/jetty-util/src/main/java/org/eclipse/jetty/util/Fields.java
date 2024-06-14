@@ -25,6 +25,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * <p>A container for name/value pairs, known as fields.</p>
  * <p>A {@link Field} is immutable and is composed of a name string that can be case-sensitive
@@ -110,7 +112,7 @@ public class Fields implements Iterable<Fields.Field>
             {
                 String name = entry.getKey();
                 Field value = entry.getValue();
-                if (!value.equals(that.get(name)))
+                if (!Objects.equals(value, that.get(name)))
                     return false;
             }
             return true;
@@ -141,6 +143,7 @@ public class Fields implements Iterable<Fields.Field>
      * @param name the field name
      * @return the {@link Field} with the given name, or null if no such field exists
      */
+    @Nullable
     public Field get(String name)
     {
         return fields.get(name);
@@ -150,6 +153,7 @@ public class Fields implements Iterable<Fields.Field>
      * @param name the field name
      * @return the first value of the field with the given name, or null if no such field exists
      */
+    @Nullable
     public String getValue(String name)
     {
         Field field = get(name);
@@ -162,6 +166,7 @@ public class Fields implements Iterable<Fields.Field>
      * @param name the field name
      * @return the values of the field with the given name, or null if no such field exists
      */
+    @Nullable
     public List<String> getValues(String name)
     {
         Field field = get(name);
@@ -200,7 +205,7 @@ public class Fields implements Iterable<Fields.Field>
      *
      * @param field the field to put
      */
-    public void put(Field field)
+    public void put(@Nullable Field field)
     {
         if (field != null)
         {
@@ -235,7 +240,7 @@ public class Fields implements Iterable<Fields.Field>
      * @param name the field name
      * @param values the field values to add
      */
-    public void add(String name, String... values)
+    public void add(String name, @Nullable String... values)
     {
         if (values == null || values.length == 0)
             return;
@@ -478,6 +483,7 @@ public class Fields implements Iterable<Fields.Field>
          * @return the result of {@link #getValue()} converted to an integer, or null
          * @throws NumberFormatException if the conversion fails
          */
+        @Nullable
         public Integer getValueAsInt()
         {
             final String value = getValue();

@@ -11,6 +11,7 @@
   <description>Utility classes for Jetty</description>
   <properties>
     <bundle-symbolic-name>${project.groupId}.util</bundle-symbolic-name>
+    <errorprone.package>org.eclipse.jetty.util</errorprone.package>
     <spotbugs.onlyAnalyze>org.eclipse.jetty.util.*</spotbugs.onlyAnalyze>
   </properties>
   <dependencies>

@@ -22,12 +22,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public class FuturePromise<C> implements Future<C>, Promise<C>
 {
     private static Throwable COMPLETED = new ConstantThrowable();
     private final AtomicBoolean _done = new AtomicBoolean(false);
     private final CountDownLatch _latch = new CountDownLatch(1);
+    @Nullable
     private Throwable _cause;
+    @Nullable
     private C _result;
 
     public FuturePromise()
@@ -109,6 +113,7 @@ public class FuturePromise<C> implements Future<C>, Promise<C>
     }
 
     @Override
+    @Nullable
     public C get() throws InterruptedException, ExecutionException
     {
         _latch.await();
@@ -129,6 +134,7 @@ public class FuturePromise<C> implements Future<C>, Promise<C>
      * @throws Exception if the cause is an Exception or Error,
      * otherwise an ExecutionException wrapping the cause
      */
+    @Nullable
     public C getOrThrow() throws Exception
     {
         _latch.await();
@@ -144,6 +150,7 @@ public class FuturePromise<C> implements Future<C>, Promise<C>
     }
 
     @Override
+    @Nullable
     public C get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
     {
         if (!_latch.await(timeout, unit))

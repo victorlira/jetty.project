@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Abstract Trie implementation.
  * <p>Provides some common implementations, which may not be the most
@@ -61,21 +63,25 @@ abstract class AbstractTrie<V> implements Index.Mutable<V>
         return o;
     }
 
+    @Nullable
     public V get(String s)
     {
         return get(s, 0, s == null ? 0 : s.length());
     }
 
+    @Nullable
     public V get(ByteBuffer b)
     {
         return get(b, 0, b.remaining());
     }
 
+    @Nullable
     public V getBest(String s)
     {
         return getBest(s, 0, s == null ? 0 : s.length());
     }
 
+    @Nullable
     public V getBest(byte[] b, int offset, int len)
     {
         return getBest(new String(b, offset, len, StandardCharsets.ISO_8859_1));

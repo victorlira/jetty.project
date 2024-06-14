@@ -20,6 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * A multi valued Map.
  *
@@ -53,6 +55,7 @@ public class MultiMap<V> extends LinkedHashMap<String, List<V>>
      * @param name The entry key.
      * @return Unmodifieable List of values.
      */
+    @Nullable
     public List<V> getValues(String name)
     {
         List<V> vals = super.get(name);
@@ -69,6 +72,7 @@ public class MultiMap<V> extends LinkedHashMap<String, List<V>>
      * @param name The entry key.
      * @return a value from index 0.
      */
+    @Nullable
     public V getValue(String name)
     {
         return getValue(name, 0);
@@ -83,6 +87,7 @@ public class MultiMap<V> extends LinkedHashMap<String, List<V>>
      * @param i Index of element to get.
      * @return a value.
      */
+    @Nullable
     public V getValue(String name, int i)
     {
         List<V> vals = getValues(name);
@@ -106,6 +111,7 @@ public class MultiMap<V> extends LinkedHashMap<String, List<V>>
      * @param name The entry key.
      * @return String value.
      */
+    @Nullable
     public String getString(String name)
     {
         List<V> vals = get(name);

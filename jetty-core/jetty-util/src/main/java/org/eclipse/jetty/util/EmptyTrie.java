@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * An empty trie implementation that never contains anything and never accepts new entries.
  *
@@ -48,6 +50,7 @@ class EmptyTrie<V> extends AbstractTrie<V>
     }
 
     @Override
+    @Nullable
     public V get(String s)
     {
         return null;

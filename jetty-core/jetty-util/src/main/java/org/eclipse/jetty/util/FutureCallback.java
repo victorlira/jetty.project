@@ -23,12 +23,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public class FutureCallback implements Future<Void>, Callback
 {
     private static final Throwable COMPLETED = new ConstantThrowable();
     public static final FutureCallback SUCCEEDED = new FutureCallback(true);
     private final AtomicBoolean _done = new AtomicBoolean(false);
     private final CountDownLatch _latch = new CountDownLatch(1);
+    @Nullable
     private Throwable _cause;
 
     public FutureCallback()
@@ -109,7 +112,7 @@ public class FutureCallback implements Future<Void>, Callback
     }
 
     @Override
-    public Void get() throws InterruptedException, ExecutionException
+    public @Nullable Void get() throws InterruptedException, ExecutionException
     {
         _latch.await();
         if (_cause == COMPLETED)
@@ -120,7 +123,7 @@ public class FutureCallback implements Future<Void>, Callback
     }
 
     @Override
-    public Void get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
+    public @Nullable Void get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
     {
         if (!_latch.await(timeout, unit))
             throw new TimeoutException();

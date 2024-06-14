@@ -32,6 +32,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * A matcher for classes based on package and/or location and/or module/
  * <p>
@@ -57,11 +59,13 @@ public class ClassMatcher extends AbstractSet<String>
 {
     public static class Entry
     {
+        @Nullable
         private final String _pattern;
+        @Nullable
         private final String _name;
         private final boolean _inclusive;
 
-        protected Entry(String name, boolean inclusive)
+        protected Entry(@Nullable String name, boolean inclusive)
         {
             _name = name;
             _inclusive = inclusive;

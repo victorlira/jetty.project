@@ -21,6 +21,8 @@ import java.nio.file.Path;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Simple, yet surprisingly common utility methods for identifying various file types commonly seen and worked with in a
  * deployment scenario.
@@ -125,6 +127,7 @@ public class FileID
      * @param uri The URI to search
      * @return The last segment extension. Null if input uri is null, or scheme is null, or URI is not a `jar:file:` or `file:` based URI
      */
+    @Nullable
     public static String getExtension(URI uri)
     {
         if (uri == null)
@@ -179,6 +182,7 @@ public class FileID
      * @param path The string path
      * @return The last segment extension, or null if not a file, or null if there is no extension present
      */
+    @Nullable
     public static String getExtension(Path path)
     {
         if (path == null)
@@ -200,6 +204,7 @@ public class FileID
      *         or null if not a file;
      *         or null if there is no extension present
      */
+    @Nullable
     public static String getExtension(String filename)
     {
         if (filename == null)
@@ -251,7 +256,7 @@ public class FileID
         return matchesExtension(getExtension(filename), extensions);
     }
 
-    private static boolean matchesExtension(String ext, String... extensions)
+    private static boolean matchesExtension(@Nullable String ext, String... extensions)
     {
         if (ext == null)
             return false;
